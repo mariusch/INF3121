@@ -3,7 +3,7 @@ package hangman;
 import java.io.Serializable;
 
 public class Players implements Serializable{
-	
+
 	private String name;
 	private int scores;
 
@@ -11,10 +11,7 @@ public class Players implements Serializable{
 		this.name = name;
 		this.scores = scores;
 	}
-	
-	
-	
-	
+
 	public String getName() {
 		return name;
 	}
@@ -22,7 +19,5 @@ public class Players implements Serializable{
 	public int getScores() {
 		return scores;
 	}
-
-	
 
 }

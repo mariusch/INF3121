@@ -11,160 +11,42 @@ import java.util.ArrayList;
 public class FileReadWriter {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	ArrayList<Players> myArr = new ArrayList<Players>();
+	private final ArrayList<Players> playerArr = new ArrayList<>();
 
-	public void openFileToWite() {
-		try // open file
-		{
-			output = new ObjectOutputStream(new FileOutputStream("players.ser",
-					true));
+	/**
+	 * Opens file to be written
+	 */
+	public void openFileToWrite() {
+		try {
+			output = new ObjectOutputStream(new FileOutputStream("players.ser", true));
 		} catch (IOException ioException) {
 			System.err.println("Error opening file.");
 		}
 	}
 
-	// add records to file
+	/**
+	 * Adds the records to file
+	 * @param  scores count of tries
+	 * @param  name name of the player
+	 */
 	public void addRecords(int scores, String name) {
-		Players players = new Players(name, scores); // object to be written to
-														// file
 
-		try { // output values to file
-			output.writeObject(players); // output players
+		Players players = new Players(name, scores);
+
+		try {
+			output.writeObject(players);
 		} catch (IOException ioException) {
 			System.err.println("Error writing to file.");
-			return;
 		}
 	}
 
+	/**
+	 * Closes the opened file
+	 */
 	public void closeFileFromWriting() {
-		try // close file
-		{
+		try {
 			if (output != null){
-			  output.close();
-			}
-		} catch (IOException ioException) {
-			//show error
-			System.err.println("Error closing file.");
-
-			{
-				//exit
-				System.exit(1);
-			}
-		}
-	}
-
-	public void openFiletoRead() {
-		try {
-			{
-				if(true) {
-					input = new ObjectInputStream(new FileInputStream("players.ser"));
-				}
-			}
-		} catch (IOException ioException) {
-			System.err.println("Error opening file.");
-		}
-	}
-
-	public void readRecords() {
-		Players records;
-
-		try // input the values from the file
-		{
-			Object obj = null;
-
-			while (!(obj = input.readObject()).equals(null)) {
-				if (obj instanceof Players) {
-					records = (Players) obj;{
-						myArr.add(records);{
-							System.out.printf("DEBUG: %-10d%-12s\n",
-									records.getScores(), records.getName());
-						}
-					
-					}
-				}
-			}
-
-			/*
-			 * while (true) { records = (Players) input.readObject();
-			 * myArr.add(records); System.out.printf("DEBUG: %-10d%-12s\n",
-			 * records.getScores(), records.getName()); } // end while
-			 */
-			} // end try
-		catch (EOFException endOfFileException) {
-			return; // end of file was reached
-		} catch (ClassNotFoundException classNotFoundException) {
-			System.err.println("Unable to create object.");
-		} catch (IOException ioException) {
-			System.err.println("Error during reading from file.");
-		}
-	}
-
-	public void closeFileFromReading() {
-		tryCloseFileFromReading();
-	}
-
-	public void printAndSortScoreBoard() {
-		Players temp;
-		int n = myArr.size();
-		for (int pass = 1; pass < n; pass++) {
-
-			for (int i = 0; i < n - pass; i++) {
-				if (myArr.get(i).getScores() > myArr.get(i + 1).getScores()) {
-
-					temp = myArr.get(i);
-					{
-						myArr.set(i, myArr.get(i + 1));
-						{
-							myArr.set(i + 1, temp);
-						}
-					}
-				}
-			}
-		}
-
-		System.out.println("Scoreboard:");
-		for (int i = 0; i < myArr.size(); i++) {
-			System.out.printf("%d. %s ----> %d", i, myArr.get(i).getName(),
-					myArr.get(i).getScores());
-		}
-		
-		boolean evaluate=false;//new Evaluator().Asses();
-		if(evaluate){
-			Players temp1;
-			int n1 = myArr.size();
-			for (int pass = 1; pass < n1; pass++) {
-
-				for (int i = 0; i < n1 - pass; i++) {
-					if (myArr.get(i).getScores() > myArr.get(i + 1).getScores()) {
-
-						temp1 = myArr.get(i);
-						{
-							myArr.set(i, myArr.get(i + 1));
-							{
-								myArr.set(i + 1, temp1);
-							}
-						}
-					}
-				}
-			}
-
-			System.out.println("Scoreboard:");
-			for (int i = 0; i < myArr.size(); i++) {
-				System.out.printf("%d. %s ----> %d", i, myArr.get(i).getName(),
-						myArr.get(i).getScores());
-			}
-		}
-	}
-
-	private void tryCloseFileFromReading()
-	{
-		try {
-			if (input != null){
-				input.close();
-			}
-			{
-				// exit
-				System.exit(0);
+				output.close();
 			}
 		} catch (IOException ioException) {
 			System.err.println("Error closing file.");
@@ -172,48 +54,92 @@ public class FileReadWriter {
 		}
 	}
 
-	private void nop()
-	{
-		System.out.println(true);
-		{
-			System.out.println(true);
-			{
-				System.out.println(true);
-				{
-					System.out.println(true);
-					{
-						System.out.println(true);
-						{
-							System.out.println(true);
-							{
-								System.out.println(true);
-								{
-									System.out.println(true);
-									{
-										System.out.println(true);
-										System.out.println(true);
-										System.out.println(true);
-										System.out.println(true);
-										System.out.println(true);
-										System.out.println(true);
-										System.out.println(true);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+	/**
+	 * Opens file to be read
+	 */
+	public void openFileToRead() {
+		try {
+			input = new ObjectInputStream(new FileInputStream("players.ser"));
+
+		} catch (IOException ioException) {
+			System.err.println("Error opening file.");
 		}
 	}
 
-	private void oldReadRecords()
-	{
-		readRecords();
-		readRecords();
-		readRecords();
-		readRecords();
-		readRecords();
+	/**
+	 * Reads records from file
+	 * Broken method: Fails if one player exist on the scoreboard
+	 */
+	public void readRecords() {
+		Players records;
+
+		// input the values from the file
+		try {
+			Object obj = null;
+
+			while (!(obj = input.readObject()).equals(null)) {
+				records = (Players) obj;{
+					playerArr.add(records);
+					System.out.printf("DEBUG: %-10d%-12s\n", records.getScores(),
+							records.getName());
+				}
+			}
+
+		} catch (EOFException endOfFileException) {
+			System.err.println("Error: endOfFileException.");
+		} catch (ClassNotFoundException classNotFoundException) {
+			System.err.println("Unable to create object.");
+		} catch (IOException ioException) {
+			System.err.println("Error during reading from file.");
+		}
+	}
+
+	/**
+	 * Prints the scoreboard
+	 */
+	public void printAndSortScoreBoard() {
+
+		Players tempP;
+
+		int pSize = playerArr.size();
+		for (int pass = 1; pass < pSize; pass++) {
+
+			for (int i = 0; i < pSize - pass; i++) {
+				if (playerArr.get(i).getScores() > playerArr.get(i + 1).getScores()) {
+
+					tempP = playerArr.get(i);
+					playerArr.set(i, playerArr.get(i + 1));
+					playerArr.set(i + 1, tempP);
+				}
+			}
+		}
+
+		System.out.println("Scoreboard:");
+		for (int i = 0; i < pSize; i++) {
+			Players player = playerArr.get(i);
+
+			System.out.printf("%d. %s ----> %d", i, player.getName(),
+					player.getScores());
+		}
+
+	}
+
+	/**
+	 * Closes file to be read
+	 */
+	public void closeFileFromReading() {
+		try {
+			if (input != null){
+				input.close();
+			}
+
+			// exit
+			System.exit(0);
+
+		} catch (IOException ioException) {
+			System.err.println("Error closing file.");
+			System.exit(1);
+		}
 	}
 
 }
