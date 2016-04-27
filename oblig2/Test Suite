@@ -9,12 +9,12 @@
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
 <tr><td><a href="1.2 - Log in">1.2 - Log in</a></td></tr>
-<tr><td><a href="X - Log out">X - Log out</a></td></tr>
 <tr><td><a href="3.1 - Checkout">3.1 - Checkout</a></td></tr>
 <tr><td><a href="2.1 - Select products">2.1 - Select products</a></td></tr>
 <tr><td><a href="2.2 - Continue shopping">2.2 - Continue shopping</a></td></tr>
 <tr><td><a href="2.3 - Change number of items">2.3 - Change number of items</a></td></tr>
 <tr><td><a href="3.2 - Finalize order successfully">3.2 - Finalize order successfully</a></td></tr>
+<tr><td><a href="4.1 - Log out">X - Log out</a></td></tr>
 </tbody></table>
 </body>
 </html>
